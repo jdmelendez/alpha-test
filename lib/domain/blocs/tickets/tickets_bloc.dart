@@ -33,10 +33,12 @@ class TicketsBloc extends Bloc<TicketsEvent, TicketsState> {
     on<TicketsUpdate>((event, emit) async {
       try {
         await ticketsRepository.update_LocalDB(event.item);
+      } catch (e) {}
+    });
 
-        // Se almacenan en una base de datos local
-
-        // emit(TicketsState(items: items, status: TicketsStatus.loaded));
+    on<TicketsRead>((event, emit) async {
+      try {
+        emit(state.copyWith(status: TicketsStatus.loaded));
       } catch (e) {}
     });
 

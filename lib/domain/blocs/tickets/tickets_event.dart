@@ -16,3 +16,9 @@ class TicketsUpdate extends TicketsEvent {
 
   const TicketsUpdate({required this.item});
 }
+
+class TicketsRead extends TicketsEvent {
+  final String code;
+
+  const TicketsRead({required this.code});
+}

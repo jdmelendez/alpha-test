@@ -4,13 +4,11 @@ import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
-import '../models/ticket.dart';
-
 class DatabaseProvider {
   static final DatabaseProvider dbProvider = DatabaseProvider();
 
   static Database? _database;
-  static const _dbName = 'tickets2.db';
+  static const _dbName = 'alpha.db';
   static const ticketsTable = 'tickets';
   static const lecturasTable = 'lecturas';
 

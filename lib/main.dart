@@ -1,6 +1,7 @@
 import 'package:alpha_test/data/repositories/lecturas_repository.dart';
 import 'package:alpha_test/data/repositories/tickets_repository.dart';
 import 'package:alpha_test/domain/blocs/lecturas/lecturas_bloc.dart';
+import 'package:alpha_test/domain/blocs/tickets/scaner/scaner_bloc.dart';
 import 'package:alpha_test/presentation/home_scren.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,6 +41,12 @@ class MyApp extends StatelessWidget {
               lazy: false,
               create: (context) =>
                   LecturasBloc(lecturasRepository: LecturasRepository())),
+          BlocProvider<ScanerBloc>(
+              lazy: false,
+              create: (context) => ScanerBloc(
+                    lecturasRepository: LecturasRepository(),
+                    ticketsRepository: TicketsRepository(),
+                  )),
         ],
         child: MaterialApp.router(
           routeInformationProvider: appRouter.routeInformationProvider,

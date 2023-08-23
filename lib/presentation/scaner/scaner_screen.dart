@@ -1,14 +1,20 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:io';
 
 import 'package:alpha_test/data/repositories/lecturas_repository.dart';
 import 'package:alpha_test/data/repositories/tickets_repository.dart';
+import 'package:alpha_test/domain/blocs/tickets/scaner/scaner_bloc.dart';
+import 'package:alpha_test/domain/blocs/tickets/tickets_bloc.dart';
 import 'package:alpha_test/presentation/shared/constants/sizes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import '../data/models/lectura.dart';
-import '../data/models/ticket.dart';
-import '../domain/theme/theme.dart';
+import '../../data/models/lectura.dart';
+import '../../data/models/ticket.dart';
+import '../../domain/blocs/lecturas/lecturas_bloc.dart';
+import '../../domain/theme/theme.dart';
 
 class ScanerScreen extends StatefulWidget {
   const ScanerScreen({Key? key}) : super(key: key);
@@ -42,24 +48,13 @@ class _ScanerScreenState extends State<ScanerScreen> {
     this.controller = controller;
     controller.scannedDataStream.listen((scanData) async {
       result = scanData;
+
+      // Si el codigo escaneado no es nula y es distinto al anterior
       if (result != null && codeScaned != result!.code) {
         codeScaned = result!.code ?? "";
 
-        // Se obtiene el ticket de la base de datos local
-        TicketsRepository ticketsRepository = TicketsRepository();
-        LecturasRepository lecturasRepository = LecturasRepository();
-        Ticket? ticket =
-            await ticketsRepository.get_ByCode_LocalDB(result!.code ?? "");
-        if (ticket != null) {
-          // Si el ticket tiene el estado a 0, se registra la entrada
-          isOk = ticket.state == 0 ? 1 : 0;
-
-          // Si el ticket tiene el estado a 0, se registra la entrada
-          ticketsRepository.update_LocalDB(ticket.copyWith(state: 1));
-        }
-
-        lecturasRepository.insert_LocalDB(Lectura(
-            code: codeScaned, fecha: DateTime.now(), isOk: isOk, id: 1));
+        // Se lee el ticket
+        context.read<ScanerBloc>().add(ScanerRead(code: codeScaned));
 
         setState(() {});
       }
@@ -68,11 +63,6 @@ class _ScanerScreenState extends State<ScanerScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var scanArea = (MediaQuery.of(context).size.width < 400 ||
-            MediaQuery.of(context).size.height < 400)
-        ? 150.0
-        : 300.0;
-
     return Scaffold(
       appBar: AppBar(
           // title: Text('ScanerScreen'),
@@ -97,9 +87,7 @@ class _ScanerScreenState extends State<ScanerScreen> {
           gapH32,
           codeQR(result: result),
           Spacer(),
-          checkQR(
-            isOk: isOk == 1,
-          )
+          checkQR()
         ],
       ),
     );
@@ -127,24 +115,30 @@ class codeQR extends StatelessWidget {
 }
 
 class checkQR extends StatelessWidget {
-  const checkQR({
+  checkQR({
     super.key,
-    required this.isOk,
   });
 
-  final bool isOk;
+  bool isOk = false;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(color: isOk ? AppTheme.green : AppTheme.red),
-      width: double.infinity,
-      height: 60,
-      child: Center(
-          child: Text(
-        isOk ? "ADELANTE" : "ERROR",
-        style: TextStyle(fontSize: 26, color: AppTheme.white),
-      )),
-    ).animate().fade();
+    return BlocBuilder<ScanerBloc, ScanerState>(
+      builder: (context, state) {
+        isOk = state.status == ScanerStatus.isOk;
+
+        return Container(
+          decoration:
+              BoxDecoration(color: isOk ? AppTheme.green : AppTheme.red),
+          width: double.infinity,
+          height: 60,
+          child: Center(
+              child: Text(
+            isOk ? "ADELANTE" : "ERROR",
+            style: TextStyle(fontSize: 26, color: AppTheme.white),
+          )),
+        ).animate().fade();
+      },
+    );
   }
 }

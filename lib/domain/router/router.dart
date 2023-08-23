@@ -1,6 +1,6 @@
-import 'package:alpha_test/presentation/lecturasHistorico_screen.dart';
+import 'package:alpha_test/presentation/lecturas/lecturasHistorico_screen.dart';
 import 'package:alpha_test/presentation/home_scren.dart';
-import 'package:alpha_test/presentation/scaner_screen.dart';
+import 'package:alpha_test/presentation/scaner/scaner_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 

@@ -2,6 +2,8 @@ import 'package:meta/meta.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'dart:convert';
 
+import '../utils/utils.dart';
+
 part 'lectura.freezed.dart';
 part 'lectura.g.dart';
 
@@ -20,14 +22,4 @@ class Lectura with _$Lectura {
 
   factory Lectura.fromJson(Map<String, dynamic> json) =>
       _$LecturaFromJson(json);
-}
-
-class DatetimeJsonConverter extends JsonConverter<DateTime, String> {
-  const DatetimeJsonConverter();
-
-  @override
-  DateTime fromJson(String json) => DateTime.parse(json).toLocal();
-
-  @override
-  String toJson(DateTime object) => object.toUtc().toIso8601String();
 }
