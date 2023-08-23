@@ -29,7 +29,6 @@ class _ScanerScreenState extends State<ScanerScreen> {
   QRViewController? controller;
 
   String codeScaned = "";
-
   int isOk = 0;
 
   // In order to get hot reload to work we need to pause the camera if the platform
@@ -59,6 +58,12 @@ class _ScanerScreenState extends State<ScanerScreen> {
         setState(() {});
       }
     });
+  }
+
+  @override
+  void initState() {
+    context.read<ScanerBloc>().add(ScanerReset());
+    super.initState();
   }
 
   @override

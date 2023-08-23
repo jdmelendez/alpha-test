@@ -6,7 +6,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import "package:meta/meta.dart";
-
+import 'package:bloc_concurrency/bloc_concurrency.dart';
 import '../../../../data/models/lectura.dart';
 import '../../../../data/models/ticket.dart';
 import '../../../../data/repositories/tickets_repository.dart';
@@ -22,6 +22,10 @@ class ScanerBloc extends Bloc<ScanerEvent, ScanerState> {
   ScanerBloc(
       {required this.ticketsRepository, required this.lecturasRepository})
       : super(ScanerState()) {
+    on<ScanerReset>((event, emit) async {
+      emit(ScanerState(status: ScanerStatus.isNoOK));
+    });
+
     on<ScanerRead>((event, emit) async {
       try {
         // Se obtiene el ticket de la base de datos local
@@ -48,7 +52,7 @@ class ScanerBloc extends Bloc<ScanerEvent, ScanerState> {
             isOk: isOK ? 1 : 0,
             id: 1));
       } catch (e) {}
-    });
+    }, transformer: sequential());
 
     @override
     void dispose() {}

@@ -12,3 +12,7 @@ class ScanerRead extends ScanerEvent {
 
   final String code;
 }
+
+class ScanerReset extends ScanerEvent {
+  const ScanerReset();
+}
