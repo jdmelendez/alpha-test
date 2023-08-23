@@ -10,6 +10,7 @@ import 'data/dio/dio_client.dart';
 import 'domain/blocs/tickets/tickets_bloc.dart';
 import 'domain/router/router.dart';
 import 'domain/theme/theme.dart';
+import 'domain/theme/themeData.dart';
 
 void main() async {
   DioClient dio = DioClient();
@@ -32,6 +33,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MultiBlocProvider(
         providers: [
+          // Se cargan los tickets al levantar la aplicación
           BlocProvider<TicketsBloc>(
               lazy: false,
               create: (context) =>
@@ -54,25 +56,9 @@ class MyApp extends StatelessWidget {
           routerDelegate: appRouter.routerDelegate,
           debugShowCheckedModeBanner: false,
           title: 'Alpha',
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: AppTheme.primaryColor),
-            useMaterial3: true,
-            appBarTheme: AppBarTheme(
-                backgroundColor: AppTheme.primaryColor,
-                elevation: 0,
-                foregroundColor: AppTheme.white),
-            filledButtonTheme: FilledButtonThemeData(
-                style: ButtonStyle(
-              shape: MaterialStatePropertyAll(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(5),
-                ),
-              ),
-            )),
-          ),
+          theme: themeData,
           builder: (context, child) {
             return child!;
-            // ),
           },
         ),
       ),
