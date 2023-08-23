@@ -1,12 +1,8 @@
-import 'dart:async';
-
-import 'package:alpha_test/data/sqlite/database.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import "package:meta/meta.dart";
 
-import '../../../data/dao/ticket_dao.dart';
 import '../../../data/models/ticket.dart';
 import '../../../data/repositories/tickets_repository.dart';
 

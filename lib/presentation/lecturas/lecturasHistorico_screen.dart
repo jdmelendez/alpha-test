@@ -2,7 +2,6 @@ import 'package:alpha_test/presentation/lecturas/widgets/lectura_card.dart';
 import 'package:alpha_test/presentation/shared/constants/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 
 import '../../data/models/lectura.dart';
 
@@ -20,7 +19,7 @@ class LecturasHistoricoScreen extends StatefulWidget {
 class _LecturasHistoricoScreenState extends State<LecturasHistoricoScreen> {
   @override
   void initState() {
-    context.read<LecturasBloc>().add(LecturasLoad());
+    context.read<LecturasBloc>().add(const LecturasLoad());
     super.initState();
   }
 

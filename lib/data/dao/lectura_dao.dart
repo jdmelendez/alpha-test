@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import '../models/lectura.dart';
-import '../models/ticket.dart';
 import '../sqlite/database.dart';
 
 class LecturaDao {

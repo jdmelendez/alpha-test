@@ -24,15 +24,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 onPressed: () {
                   GoRouter.of(context).push(scaner_route);
                 },
-                child: Text("INICIAR ESCANEO")),
-            SizedBox(
+                child: const Text("INICIAR ESCANEO")),
+            const SizedBox(
               height: 40,
             ),
             FilledButton(
                 onPressed: () {
                   GoRouter.of(context).push(lecturasHistorico_route);
                 },
-                child: Text("HISTÓRICO")),
+                child: const Text("HISTÓRICO")),
           ],
         ),
       ),

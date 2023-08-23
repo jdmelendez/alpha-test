@@ -16,8 +16,8 @@ class Lectura_card extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(5),
         color: AppTheme.white,
@@ -49,7 +49,7 @@ class Lectura_card extends StatelessWidget {
         ),
         gapH6,
         Row(children: [
-          Text(
+          const Text(
             'RESULTADO: ',
             style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
           ),
@@ -57,11 +57,11 @@ class Lectura_card extends StatelessWidget {
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(4),
                 color: lectura.isOk == 1 ? AppTheme.green : AppTheme.red),
-            padding: EdgeInsets.symmetric(horizontal: 5, vertical: 3),
+            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
             child: Text(
               lectura.isOk == 1 ? "ADELANTE" : "ERROR",
               textAlign: TextAlign.center,
-              style: TextStyle(
+              style: const TextStyle(
                   color: AppTheme.white,
                   fontSize: 11,
                   fontWeight: FontWeight.w500),
@@ -71,9 +71,9 @@ class Lectura_card extends StatelessWidget {
         gapH4,
         Row(
           children: [
-            Text(
+            const Text(
               'FECHA: ',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
             ),
             Text(DateFormat("dd-MM-yyyy").format(lectura.fecha),
                 style:

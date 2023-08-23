@@ -2,16 +2,11 @@
 
 import 'dart:io';
 
-import 'package:alpha_test/data/repositories/lecturas_repository.dart';
-import 'package:alpha_test/data/repositories/tickets_repository.dart';
-import 'package:alpha_test/domain/blocs/tickets/tickets_bloc.dart';
 import 'package:alpha_test/presentation/shared/constants/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import '../../data/models/lectura.dart';
-import '../../data/models/ticket.dart';
 
 import '../../domain/theme/theme.dart';
 import 'bloc/scaner_bloc.dart';
@@ -62,7 +57,7 @@ class _ScanerScreenState extends State<ScanerScreen> {
 
   @override
   void initState() {
-    context.read<ScanerBloc>().add(ScanerReset());
+    context.read<ScanerBloc>().add(const ScanerReset());
     super.initState();
   }
 
@@ -79,7 +74,7 @@ class _ScanerScreenState extends State<ScanerScreen> {
           gapH64,
           Flexible(
             child: Center(
-              child: Container(
+              child: SizedBox(
                 height: 250,
                 width: 250,
                 child: QRView(
@@ -91,7 +86,7 @@ class _ScanerScreenState extends State<ScanerScreen> {
           ),
           gapH32,
           codeQR(result: result),
-          Spacer(),
+          const Spacer(),
           checkQR()
         ],
       ),
@@ -140,7 +135,7 @@ class checkQR extends StatelessWidget {
           child: Center(
               child: Text(
             isOk ? "ADELANTE" : "ERROR",
-            style: TextStyle(fontSize: 26, color: AppTheme.white),
+            style: const TextStyle(fontSize: 26, color: AppTheme.white),
           )),
         ).animate().fade();
       },

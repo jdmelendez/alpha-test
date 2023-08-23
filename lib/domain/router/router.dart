@@ -1,5 +1,5 @@
 import 'package:alpha_test/presentation/lecturas/lecturasHistorico_screen.dart';
-import 'package:alpha_test/presentation/home_scren.dart';
+import 'package:alpha_test/presentation/home_screen.dart';
 import 'package:alpha_test/presentation/scaner/scaner_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -34,7 +34,7 @@ final appRouter = GoRouter(
               child: child,
             );
           },
-          child: HomeScreen(),
+          child: const HomeScreen(),
         ),
       ),
       GoRoute(
@@ -50,7 +50,7 @@ final appRouter = GoRouter(
               child: child,
             );
           },
-          child: ScanerScreen(),
+          child: const ScanerScreen(),
         ),
       ),
       GoRoute(
@@ -66,7 +66,7 @@ final appRouter = GoRouter(
               child: child,
             );
           },
-          child: LecturasHistoricoScreen(),
+          child: const LecturasHistoricoScreen(),
         ),
       ),
     ]);

@@ -1,11 +1,7 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
-import 'package:flutter/services.dart';
 
 import '../dao/lectura_dao.dart';
-import '../dio/dio_client.dart';
-import '../endpoints/endpoints.dart';
+
 import '../models/lectura.dart';
 
 class LecturasRepository {
