@@ -1,4 +1,3 @@
-import 'package:alpha_test/domain/blocs/lecturas/lecturas_bloc.dart';
 import 'package:alpha_test/presentation/lecturas/widgets/lectura_card.dart';
 import 'package:alpha_test/presentation/shared/constants/sizes.dart';
 import 'package:flutter/material.dart';
@@ -6,8 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 import '../../data/models/lectura.dart';
-import '../../domain/blocs/lecturas/lecturas_bloc.dart';
+
 import '../../domain/theme/theme.dart';
+import 'bloc/lecturas_bloc.dart';
 
 class LecturasHistoricoScreen extends StatefulWidget {
   const LecturasHistoricoScreen({Key? key}) : super(key: key);

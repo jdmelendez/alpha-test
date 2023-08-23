@@ -1,8 +1,7 @@
 import 'package:alpha_test/data/repositories/lecturas_repository.dart';
 import 'package:alpha_test/data/repositories/tickets_repository.dart';
-import 'package:alpha_test/domain/blocs/lecturas/lecturas_bloc.dart';
-import 'package:alpha_test/domain/blocs/tickets/scaner/scaner_bloc.dart';
 import 'package:alpha_test/presentation/home_scren.dart';
+import 'package:alpha_test/presentation/scaner/bloc/scaner_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,6 +10,7 @@ import 'domain/blocs/tickets/tickets_bloc.dart';
 import 'domain/router/router.dart';
 import 'domain/theme/theme.dart';
 import 'domain/theme/themeData.dart';
+import 'presentation/lecturas/lecturas/lecturas_bloc.dart';
 
 void main() async {
   DioClient dio = DioClient();

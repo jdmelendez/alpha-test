@@ -4,7 +4,6 @@ import 'dart:io';
 
 import 'package:alpha_test/data/repositories/lecturas_repository.dart';
 import 'package:alpha_test/data/repositories/tickets_repository.dart';
-import 'package:alpha_test/domain/blocs/tickets/scaner/scaner_bloc.dart';
 import 'package:alpha_test/domain/blocs/tickets/tickets_bloc.dart';
 import 'package:alpha_test/presentation/shared/constants/sizes.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +12,9 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import '../../data/models/lectura.dart';
 import '../../data/models/ticket.dart';
-import '../../domain/blocs/lecturas/lecturas_bloc.dart';
+
 import '../../domain/theme/theme.dart';
+import 'bloc/scaner_bloc.dart';
 
 class ScanerScreen extends StatefulWidget {
   const ScanerScreen({Key? key}) : super(key: key);
