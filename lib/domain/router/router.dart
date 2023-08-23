@@ -1,4 +1,4 @@
-import 'package:alpha_test/presentation/historico_screen.dart';
+import 'package:alpha_test/presentation/lecturasHistorico_screen.dart';
 import 'package:alpha_test/presentation/home_scren.dart';
 import 'package:alpha_test/presentation/scaner_screen.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +9,7 @@ const _scaffoldKey = ValueKey('_scaffoldKey');
 
 const String home_route = "/home";
 const String scaner_route = "/scaner";
-const String historico_route = "/historico";
+const String lecturasHistorico_route = "/lecturasHistorico";
 
 // private navigators
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
@@ -54,8 +54,8 @@ final appRouter = GoRouter(
         ),
       ),
       GoRoute(
-        path: historico_route,
-        name: historico_route,
+        path: lecturasHistorico_route,
+        name: lecturasHistorico_route,
         pageBuilder: (context, state) => CustomTransitionPage<void>(
           key: ValueKey<String>(state.matchedLocation +
               DateTime.now().millisecondsSinceEpoch.toString()),
@@ -66,7 +66,7 @@ final appRouter = GoRouter(
               child: child,
             );
           },
-          child: HistoricoScreen(),
+          child: LecturasHistoricoScreen(),
         ),
       ),
     ]);

@@ -1,4 +1,6 @@
+import 'package:alpha_test/data/repositories/lecturas_repository.dart';
 import 'package:alpha_test/data/repositories/tickets_repository.dart';
+import 'package:alpha_test/domain/blocs/lecturas/lecturas_bloc.dart';
 import 'package:alpha_test/presentation/home_scren.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -24,6 +26,8 @@ class MyApp extends StatelessWidget {
       providers: [
         RepositoryProvider<TicketsRepository>(
             create: (context) => TicketsRepository()),
+        RepositoryProvider<LecturasRepository>(
+            create: (context) => LecturasRepository()),
       ],
       child: MultiBlocProvider(
         providers: [
@@ -32,6 +36,10 @@ class MyApp extends StatelessWidget {
               create: (context) =>
                   TicketsBloc(ticketsRepository: TicketsRepository())
                     ..add(TicketsLoad())),
+          BlocProvider<LecturasBloc>(
+              lazy: false,
+              create: (context) =>
+                  LecturasBloc(lecturasRepository: LecturasRepository())),
         ],
         child: MaterialApp.router(
           routeInformationProvider: appRouter.routeInformationProvider,

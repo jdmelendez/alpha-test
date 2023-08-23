@@ -23,7 +23,6 @@ mixin _$Ticket {
   int get id => throw _privateConstructorUsedError;
   String get code => throw _privateConstructorUsedError;
   int get state => throw _privateConstructorUsedError;
-  DateTime? get fechaLectura => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -35,7 +34,7 @@ abstract class $TicketCopyWith<$Res> {
   factory $TicketCopyWith(Ticket value, $Res Function(Ticket) then) =
       _$TicketCopyWithImpl<$Res, Ticket>;
   @useResult
-  $Res call({int id, String code, int state, DateTime? fechaLectura});
+  $Res call({int id, String code, int state});
 }
 
 /// @nodoc
@@ -54,7 +53,6 @@ class _$TicketCopyWithImpl<$Res, $Val extends Ticket>
     Object? id = null,
     Object? code = null,
     Object? state = null,
-    Object? fechaLectura = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -69,10 +67,6 @@ class _$TicketCopyWithImpl<$Res, $Val extends Ticket>
           ? _value.state
           : state // ignore: cast_nullable_to_non_nullable
               as int,
-      fechaLectura: freezed == fechaLectura
-          ? _value.fechaLectura
-          : fechaLectura // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
     ) as $Val);
   }
 }
@@ -83,7 +77,7 @@ abstract class _$$_TicketCopyWith<$Res> implements $TicketCopyWith<$Res> {
       __$$_TicketCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int id, String code, int state, DateTime? fechaLectura});
+  $Res call({int id, String code, int state});
 }
 
 /// @nodoc
@@ -99,7 +93,6 @@ class __$$_TicketCopyWithImpl<$Res>
     Object? id = null,
     Object? code = null,
     Object? state = null,
-    Object? fechaLectura = freezed,
   }) {
     return _then(_$_Ticket(
       id: null == id
@@ -114,10 +107,6 @@ class __$$_TicketCopyWithImpl<$Res>
           ? _value.state
           : state // ignore: cast_nullable_to_non_nullable
               as int,
-      fechaLectura: freezed == fechaLectura
-          ? _value.fechaLectura
-          : fechaLectura // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
     ));
   }
 }
@@ -125,11 +114,7 @@ class __$$_TicketCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Ticket implements _Ticket {
-  const _$_Ticket(
-      {required this.id,
-      required this.code,
-      required this.state,
-      this.fechaLectura});
+  const _$_Ticket({required this.id, required this.code, required this.state});
 
   factory _$_Ticket.fromJson(Map<String, dynamic> json) =>
       _$$_TicketFromJson(json);
@@ -140,12 +125,10 @@ class _$_Ticket implements _Ticket {
   final String code;
   @override
   final int state;
-  @override
-  final DateTime? fechaLectura;
 
   @override
   String toString() {
-    return 'Ticket(id: $id, code: $code, state: $state, fechaLectura: $fechaLectura)';
+    return 'Ticket(id: $id, code: $code, state: $state)';
   }
 
   @override
@@ -155,14 +138,12 @@ class _$_Ticket implements _Ticket {
             other is _$_Ticket &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.code, code) || other.code == code) &&
-            (identical(other.state, state) || other.state == state) &&
-            (identical(other.fechaLectura, fechaLectura) ||
-                other.fechaLectura == fechaLectura));
+            (identical(other.state, state) || other.state == state));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, code, state, fechaLectura);
+  int get hashCode => Object.hash(runtimeType, id, code, state);
 
   @JsonKey(ignore: true)
   @override
@@ -182,8 +163,7 @@ abstract class _Ticket implements Ticket {
   const factory _Ticket(
       {required final int id,
       required final String code,
-      required final int state,
-      final DateTime? fechaLectura}) = _$_Ticket;
+      required final int state}) = _$_Ticket;
 
   factory _Ticket.fromJson(Map<String, dynamic> json) = _$_Ticket.fromJson;
 
@@ -193,8 +173,6 @@ abstract class _Ticket implements Ticket {
   String get code;
   @override
   int get state;
-  @override
-  DateTime? get fechaLectura;
   @override
   @JsonKey(ignore: true)
   _$$_TicketCopyWith<_$_Ticket> get copyWith =>

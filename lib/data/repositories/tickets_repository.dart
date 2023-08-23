@@ -3,21 +3,15 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 
+import '../dao/ticket_dao.dart';
 import '../dio/dio_client.dart';
 import '../endpoints/endpoints.dart';
 import '../models/ticket.dart';
-import 'base_repository.dart';
 
-class TicketsRepository implements BaseRepository<Ticket> {
+class TicketsRepository {
   final endpoint = Endpoints.tickets;
+  final ticketDAO = TicketDao();
 
-  @override
-  Future<void> add(Ticket item) async {}
-
-  @override
-  Future<void> delete(Ticket item) async {}
-
-  @override
   Future<List<Ticket>> getAll() async {
     try {
       final Response response = await DioClient.get(endpoint);
@@ -28,19 +22,40 @@ class TicketsRepository implements BaseRepository<Ticket> {
     }
   }
 
-  @override
-  Future<Ticket?> get(int id) async {
-    // Leer el contenido del archivo JSON desde assets
-    // final jsonString = await rootBundle.loadString('assets/data/items.json');
-    // final List<dynamic> jsonList = json.decode(jsonString);
+  ///
+  /// LOCAL DB
+  ///
 
-    // // Mapear la lista de objetos JSON a objetos Tarea
-    // final List<Tarea> items = jsonList.map((json) {
-    //   return Tarea.fromJson(json);
-    // }).toList();
-    // return items.firstWhere((e) => e.id == id);
+  Future<List<Ticket>> getAll_LocalDB() async {
+    try {
+      return await ticketDAO.getTickets();
+    } on DioException {
+      rethrow;
+    }
   }
 
-  @override
-  Future<void> update(Ticket item) async {}
+  Future<Ticket?> get_ByCode_LocalDB(String code) async {
+    try {
+      final List<Ticket> tickets = await ticketDAO.getTicket_byCode(code);
+      return tickets.isNotEmpty ? tickets.first : null;
+    } on DioException {
+      rethrow;
+    }
+  }
+
+  insertAll_LocalDB(List<Ticket> items) async {
+    try {
+      await ticketDAO.insertTickets(items);
+    } on Error {
+      rethrow;
+    }
+  }
+
+  update_LocalDB(Ticket item) async {
+    try {
+      await ticketDAO.updateTicket(item);
+    } on Error {
+      rethrow;
+    }
+  }
 }

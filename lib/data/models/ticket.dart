@@ -15,7 +15,6 @@ class Ticket with _$Ticket {
     required int id,
     required String code,
     required int state,
-    DateTime? fechaLectura,
   }) = _Ticket;
 
   factory Ticket.fromJson(Map<String, dynamic> json) => _$TicketFromJson(json);

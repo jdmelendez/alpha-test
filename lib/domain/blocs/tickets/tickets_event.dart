@@ -10,3 +10,9 @@ abstract class TicketsEvent extends Equatable {
 class TicketsLoad extends TicketsEvent {
   const TicketsLoad();
 }
+
+class TicketsUpdate extends TicketsEvent {
+  final Ticket item;
+
+  const TicketsUpdate({required this.item});
+}

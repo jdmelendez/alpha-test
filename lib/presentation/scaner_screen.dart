@@ -1,9 +1,13 @@
 import 'dart:io';
 
+import 'package:alpha_test/data/repositories/lecturas_repository.dart';
+import 'package:alpha_test/data/repositories/tickets_repository.dart';
 import 'package:alpha_test/presentation/shared/constants/sizes.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-
+import 'package:flutter_animate/flutter_animate.dart';
+import '../data/models/lectura.dart';
+import '../data/models/ticket.dart';
 import '../domain/theme/theme.dart';
 
 class ScanerScreen extends StatefulWidget {
@@ -18,6 +22,10 @@ class _ScanerScreenState extends State<ScanerScreen> {
   Barcode? result;
   QRViewController? controller;
 
+  String codeScaned = "";
+
+  int isOk = 0;
+
   // In order to get hot reload to work we need to pause the camera if the platform
   // is android, or resume the camera if the platform is iOS.
   @override
@@ -30,12 +38,31 @@ class _ScanerScreenState extends State<ScanerScreen> {
     }
   }
 
-  void _onQRViewCreated(QRViewController controller) {
+  void _onQRViewCreated(QRViewController controller) async {
     this.controller = controller;
-    controller.scannedDataStream.listen((scanData) {
-      setState(() {
-        result = scanData;
-      });
+    controller.scannedDataStream.listen((scanData) async {
+      result = scanData;
+      if (result != null && codeScaned != result!.code) {
+        codeScaned = result!.code ?? "";
+
+        // Se obtiene el ticket de la base de datos local
+        TicketsRepository ticketsRepository = TicketsRepository();
+        LecturasRepository lecturasRepository = LecturasRepository();
+        Ticket? ticket =
+            await ticketsRepository.get_ByCode_LocalDB(result!.code ?? "");
+        if (ticket != null) {
+          // Si el ticket tiene el estado a 0, se registra la entrada
+          isOk = ticket.state == 0 ? 1 : 0;
+
+          // Si el ticket tiene el estado a 0, se registra la entrada
+          ticketsRepository.update_LocalDB(ticket.copyWith(state: 1));
+        }
+
+        lecturasRepository.insert_LocalDB(Lectura(
+            code: codeScaned, fecha: DateTime.now(), isOk: isOk, id: 1));
+
+        setState(() {});
+      }
     });
   }
 
@@ -55,11 +82,11 @@ class _ScanerScreenState extends State<ScanerScreen> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           gapH64,
-          Center(
-            child: Container(
-              height: 250,
-              width: 250,
-              child: Flexible(
+          Flexible(
+            child: Center(
+              child: Container(
+                height: 250,
+                width: 250,
                 child: QRView(
                   key: qrKey,
                   onQRViewCreated: _onQRViewCreated,
@@ -68,17 +95,10 @@ class _ScanerScreenState extends State<ScanerScreen> {
             ),
           ),
           gapH32,
-          Text("CÓDIGO: ${result?.code ?? 'XXXXXX'}"),
+          codeQR(result: result),
           Spacer(),
-          Container(
-            decoration: BoxDecoration(color: AppTheme.red),
-            width: double.infinity,
-            height: 60,
-            child: Center(
-                child: Text(
-              "ADELANTE",
-              style: TextStyle(fontSize: 26, color: AppTheme.white),
-            )),
+          checkQR(
+            isOk: isOk == 1,
           )
         ],
       ),
@@ -89,5 +109,42 @@ class _ScanerScreenState extends State<ScanerScreen> {
   void dispose() {
     controller?.dispose();
     super.dispose();
+  }
+}
+
+class codeQR extends StatelessWidget {
+  const codeQR({
+    super.key,
+    required this.result,
+  });
+
+  final Barcode? result;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text("CÓDIGO: ${result?.code ?? 'XXXXXX'}");
+  }
+}
+
+class checkQR extends StatelessWidget {
+  const checkQR({
+    super.key,
+    required this.isOk,
+  });
+
+  final bool isOk;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(color: isOk ? AppTheme.green : AppTheme.red),
+      width: double.infinity,
+      height: 60,
+      child: Center(
+          child: Text(
+        isOk ? "ADELANTE" : "ERROR",
+        style: TextStyle(fontSize: 26, color: AppTheme.white),
+      )),
+    ).animate().fade();
   }
 }

@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             FilledButton(
                 onPressed: () {
-                  GoRouter.of(context).push(historico_route);
+                  GoRouter.of(context).push(lecturasHistorico_route);
                 },
                 child: Text("HISTÓRICO")),
           ],
