@@ -9,10 +9,10 @@ class AppTheme {
   static const primaryColor = Color(0xff6209ee);
   static const red = Color(0xffee0c10);
   static const green = Color(0xff57ee15);
+  static const greyLight = Color(0xFFefefef);
   // static const primaryColor = Color(0xff6209ee);
   // static const bgColor = Color(0xFFFAFAFA);
   // static const grisMuyclaro = Color.fromARGB(255, 243, 243, 243);
-  // static const grisclaro = Color(0xFFefefef);
   // static const grismedio = Color.fromARGB(255, 190, 194, 199);
   // static const grisoscuro = Color.fromARGB(255, 124, 126, 129);
   // static const grisMuyoscuro = Color(0xFF3F3F3F);

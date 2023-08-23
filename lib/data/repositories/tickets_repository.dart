@@ -21,7 +21,8 @@ class TicketsRepository implements BaseRepository<Ticket> {
   Future<List<Ticket>> getAll() async {
     try {
       final Response response = await DioClient.get(endpoint);
-      return List<Ticket>.from(response.data.map((e) => Ticket.fromJson(e)));
+      return List<Ticket>.from(
+          response.data["tickets"].map((e) => Ticket.fromJson(e)));
     } on DioException {
       rethrow;
     }
